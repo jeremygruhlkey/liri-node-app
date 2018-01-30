@@ -48,12 +48,15 @@ if (operation === "my-tweets") {
 }
 
 if (operation === "spotify-this-song"){
-    spotify.search({ type: 'track', query: selection }, function(err, data) {
+    spotify.search({ type: 'track', query: selection, limit: 1 }, function(err, data) {
         if (err) {
           return console.log('Error occurred: ' + err);
         }
-        console.log(data);
-        console.log(data.tracks.items[0]);
+        // console.log(data);
+        console.log("Artists Name: " + data.tracks.items[0].artists[0].name); // name of artist
+        console.log("Song Name: " + data.tracks.items[0].name); // name of song
+        console.log("Spotify Preview: " + data.tracks.items[0].external_urls.spotify); // preview link
+        console.log("Album: " + data.tracks.items[0].album.name); //name of album
        
     //   console.log("A song by: " + data.tracks.items[0].album.artists.external_urls[0]); 
     //   console.log("Titled: " + selection); 

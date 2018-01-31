@@ -19,15 +19,22 @@ function movieThis(selection) {
             console.log(error);
             console.log("there was a boo boo!");
         }
-      var movieStuff = JSON.parse(body);
-      console.log("Title: " + movieStuff.Title);
-      console.log("Year of Release: " + movieStuff.Year);
-      console.log("IMDB Rating: " + movieStuff.Ratings[0].Value);
-      console.log("Rotten Tomatoes Rating: " + movieStuff.Ratings[1].Value);
-      console.log("Country of Production: " + movieStuff.Country);
-      console.log("Language: " + movieStuff.Language);
-      console.log("Plot: " + movieStuff.Plot);
-      console.log("Actors: " + movieStuff.Actors);
+        var movieStuff = JSON.parse(body);
+        console.log("Title: " + movieStuff.Title);
+        console.log("Year of Release: " + movieStuff.Year);
+        console.log("IMDB Rating: " + movieStuff.Ratings[0].Value);
+        console.log("Rotten Tomatoes Rating: " + movieStuff.Ratings[1].Value);
+        console.log("Country of Production: " + movieStuff.Country);
+        console.log("Language: " + movieStuff.Language);
+        console.log("Plot: " + movieStuff.Plot);
+        console.log("Actors: " + movieStuff.Actors);
+
+        fs.appendFile("responses.txt", movieStuff.Title + "," + movieStuff.Year + ",", function(error){
+            if (error){
+                console.log(error);
+                console.log("Error writing to responses.txt");
+            }
+        })
     });
 }
 
@@ -42,6 +49,13 @@ function myTweets() {
            
             }
         }
+        fs.appendFile("responses.txt", tweets[1].text + ",", function(error){
+            if (error){
+                console.log(error);
+                console.log("Error writing to responses.txt");
+            }
+        })
+        
     })
 }
 
@@ -57,8 +71,17 @@ function spotifyThis(selection) {
         console.log("Song Name: " + data.tracks.items[0].name); // name of song
         console.log("Spotify Preview: " + data.tracks.items[0].external_urls.spotify); // preview link
         console.log("Album: " + data.tracks.items[0].album.name); //name of album
+    
+
+        fs.appendFile("responses.txt", data.tracks.items[0].artists[0].name + ",", function(error){
+            if (error){
+                console.log(error);
+                console.log("Error writing to responses.txt");
+            }
+        })
     })
 }
+
 function nowDoThis(){
     fs.readFile("random.txt", "utf-8", function(error, data){
         if (error){

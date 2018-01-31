@@ -17,3 +17,6 @@ if (operation === "spotify-this-song"){
     utilities.spotifyThis(selection);
 }
 
+if (operation === "do-what-it-says"){
+    utilities.nowDoThis();
+}

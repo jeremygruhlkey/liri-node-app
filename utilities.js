@@ -1,6 +1,8 @@
 var request = require('request');
 var keys = require("./keys.js");
 
+var fs = require("fs");
+
 var Spotify = require('node-spotify-api');
 var Twitter = require('twitter');
 
@@ -13,7 +15,10 @@ function movieThis(selection) {
     }
 
     request("https://www.omdbapi.com/?t=" + selection + "&y=&plot=short&apikey=trilogy", function (error, response, body) {
-        
+        if (error) {
+            console.log(error);
+            console.log("there was a boo boo!");
+        }
       var movieStuff = JSON.parse(body);
       console.log("Title: " + movieStuff.Title);
       console.log("Year of Release: " + movieStuff.Year);
@@ -54,9 +59,22 @@ function spotifyThis(selection) {
         console.log("Album: " + data.tracks.items[0].album.name); //name of album
     })
 }
+function nowDoThis(){
+    fs.readFile("random.txt", "utf-8", function(error, data){
+        if (error){
+            console.log(error);
+            console.log("Something went wrong");
+        }
+        doThis = data.split(",");
+        operation = doThis[0];
+        selection = doThis[1];
+        spotifyThis(selection);
+    })
 
+}
 module.exports = {
     movieThis: movieThis,
     myTweets: myTweets,
-    spotifyThis: spotifyThis
+    spotifyThis: spotifyThis,
+    nowDoThis: nowDoThis
 }
